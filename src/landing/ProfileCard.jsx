@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MessageCircle, Linkedin, Github } from "lucide-react";
 import dan from "../assets/dan.jpg";
 
 const ProfileCard = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = () => {
+    return currentTime.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <div>
       <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
@@ -32,6 +51,10 @@ const ProfileCard = () => {
           {/* White Bottom Section */}
           <div className="bg-white pt-24 pb-8 px-8 text-center">
             {/* Name */}
+            <div className="text-red-500 font-medium text-sm md:text-base mb-3">
+              {formatTime()}
+            </div>
+
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
               Idowu Daniel
             </h1>
